@@ -1,7 +1,9 @@
 package main
 
 import (
+	//"consumer-microservice/utils"
 	"consumer-microservice/common"
+	"consumer-microservice/dtos"
     
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -40,10 +42,31 @@ func main() {
 		return
 	}
 
-
 	m.router.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, common.Config.Port)
-	})
+
+		dto := dtos.RegisterConsumerDTO{
+			FirstName: "Kamil",
+			LastName:  "Kordecki",
+			Email:     "test@o2.pl",
+			Password:  "Password123",
+		}
+	
+		
+		
+		errs := dtos.ValidateDTO(dto)
+
+		if len(errs) > 0 {
+			errors := []string{}
+			for _, e := range errs {
+				errors = append(errors, e.Error())
+			}
+			c.JSON(http.StatusBadRequest, gin.H{"errors": errors})
+			return
+		}
+		
+		
+		c.JSON(http.StatusOK, gin.H{"message": "Validation successful!"})
+		})
 
 	m.router.Run(common.Config.Port)
 }
