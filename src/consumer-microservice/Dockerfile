@@ -12,11 +12,8 @@ FROM alpine:latest
 
 RUN apk add --no-cache libc6-compat
 
-
 WORKDIR /consumer-microservice
 
 COPY --from=builder /consumer-microservice/ /consumer-microservice/
-
-EXPOSE 9090
 
 CMD ./microservice
