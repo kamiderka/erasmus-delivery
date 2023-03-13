@@ -3,23 +3,36 @@ package common
 import (
 	"encoding/json"
 	"os"
-
 )
 
 // Configuration stores setting values
 type Configuration struct {
-	Port         string `json:"port"`
+	Port         		string `json:"port"`
 
-	PgAddrs      string `json:"PgAddrs"`
-	PgDbName     string `json:"PgDbName"`
-	PgDbUsername string `json:"PgDbUsername"`
-	PgDbPassword string `json:"PgDbPassword"`
+	PgAddrs      		string `json:"PgAddrs"`
+	PgDbName     		string `json:"PgDbName"`
+	PgDbUsername 		string `json:"PgDbUsername"`
+	PgDbPassword 		string `json:"PgDbPassword"`
+
+	JwtSecretPassword 	string `json:"jwtSecretPassword"`
+	Issuer            	string `json:"issuer"`
+
 }
 
 // Config shares the global configuration
 var (
 	Config *Configuration
 )
+
+// Status Text
+const (
+	ErrNameEmpty      		= "Name fields is empty"
+	ErrPasswordEmpty  		= "Password fields is empty"
+	ErrPasswordDoNotMatch 	= "Password fields do not match"
+	ErrEmailEmpty 			= "Email field is empty"
+	ErrInvalidEmail 		= "Email is invalid"
+)
+
 
 func LoadConfig() error {
 	// Filename is the path to the json config file
