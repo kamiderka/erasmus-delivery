@@ -1,12 +1,11 @@
 package utils
 
 import (
-	"errors"
+	"consumer-microservice/common"
 	"time"
 
-	//"../common"
+	
 	jwt_lib "github.com/dgrijalva/jwt-go"
-	"gopkg.in/mgo.v2/bson"
 )
 
 // SdtClaims defines the custom claims
